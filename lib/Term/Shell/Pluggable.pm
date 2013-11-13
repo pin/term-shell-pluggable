@@ -21,7 +21,7 @@ our $VERSION = '0.01';
 
 =head1 SYNOPSIS
 
-There is Term::Shell module in the first place. Here is hybreed of that
+There is Term::Shell module in the first place. Here is hybrid of that
 one with Module::Pluggable. So you could write big program with many modules
 commands in each one of them.
 
