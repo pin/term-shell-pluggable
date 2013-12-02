@@ -31,6 +31,47 @@ usage: bubble [-c <times>] [-v] <number> ...
 HELP
 }
 
+sub smry_levenshtein_distance { 'calculate levenshtein distance between two words' }
+sub run_distance {
+	my $class = shift;
+	my ($w1, $w2) = @_;
+	die "please provide two words\n" . $class->help_levenshtein_distance unless defined $w1 and defined $w2;
+	print $class->levenshtein_distance($w1, $w2) . "\n";
+}
+sub help_levenshtein_distance { <<HELP
+usage: levenshtein_distance <word1> <word2>
+HELP
+}
+
+sub levenshtein_distance {
+	my $class = shift;
+	my ($a, $b) = @_;
+	return 0 if $a eq $b;
+	my $n = length $a;
+	my $m = length $b;
+	return $m unless $n;
+	return $n unless $m;
+	my @d;
+	$d[0][0] = 0;
+	foreach my $i (1 .. $n) {
+		$d[$i][0] = $i;
+	}
+	foreach my $j (1 .. $m) {
+		$d[0][$j] = $j;
+	}
+	for my $i (1 .. $n) {
+		my $a_i = substr($a, $i - 1, 1);
+		for my $j (1 .. $m) {
+			$d[$i][$j] = min($d[$i - 1][$j] + 1, $d[$i][$j - 1] + 1, $d[$i - 1][$j - 1] + ($a_i eq substr($b, $j - 1, 1) ? 0 : 1))
+		}
+	}
+	return $d[$n][$m];
+}
+
+sub min {
+	return $_[0] < $_[1] ? $_[0] < $_[2] ? $_[0] : $_[2] : $_[1] < $_[2] ? $_[1] : $_[2];
+}
+
 package main;
 
 use Term::Shell::Pluggable;
