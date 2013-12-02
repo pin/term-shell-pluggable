@@ -1,4 +1,7 @@
 Revision history for Term-Shell-Pluggable
 
-0.02     2013-10-31/18:43
+0.03    2013-12-01/00:10
+        Handlers in packages super-classes are registered and could be run
+
+0.02    2013-10-31/18:43
         First version, will be published as developer release only
