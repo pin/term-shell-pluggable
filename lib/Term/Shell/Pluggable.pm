@@ -25,6 +25,33 @@ There is Term::Shell module in the first place. Here is hybrid of that
 one with Module::Pluggable. So you could write big program with many modules
 commands in each one of them.
 
+	#!/usr/bin/env perl
+	package Example;
+	
+	use warnings;
+	use strict;
+	
+	use Getopt::Long qw(GetOptionsFromArray);
+	
+	sub smry_bubble { 'bubblesort numbers' }
+	sub run_bubble {
+		my $class = shift;
+		Getopt::Long::GetOptionsFromArray(\@_,
+			'verbose' => \my $verbose,
+		) and @_ or die "wrong options or numbers are missing\n" . $class->help_bubble;
+		my @numbers = @_;
+		...
+	}
+	sub help_bubble { <<HELP
+	usage: bubble [-v] <number1> <number2> ...
+	HELP
+	}
+	
+	package main;
+	
+	use Term::Shell::Pluggable;
+	Term::Shell::Pluggable->run(packages => ['Example']);
+
 =cut
 
 sub run {
