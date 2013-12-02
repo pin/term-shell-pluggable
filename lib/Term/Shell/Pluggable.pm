@@ -250,17 +250,23 @@ sub load_file {
 
 sub attach_package {
 	my $self = shift;
-	my ($package_name) = @_;
+	my ($package_name, $sub_package_name) = @_;
 	die 'missing package name' unless $package_name;
 	my @t = split '::', $package_name;
 	my $modules = $self->{modules};
-	push @$modules, pop @t;
+	push @$modules, pop @t unless $sub_package_name;
 	{
 		no strict 'refs';
 		foreach my $sub_name (keys %{$package_name . '::'}) {
 			next unless $sub_name =~ /^(run|help|smry|comp|catch|alias)_/o;
-			$self->{r}->{$sub_name} = $package_name;
+			$self->{r}->{$sub_name} = $sub_package_name || $package_name;
 			$self->add_handlers($sub_name);
+		}
+	}
+	{
+		no strict 'refs';
+		foreach my $super_package_name (@{$package_name . '::ISA'}) {
+			$self->attach_package($super_package_name, $sub_package_name || $package_name);
 		}
 	}
 }
