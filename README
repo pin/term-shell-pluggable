@@ -1,8 +1,10 @@
 Term::Shell::Pluggable
 
-There is Term::Shell module in the first place. Here is hybrid of that
-one with Module::Pluggable. So you could write big program with many modules
-commands in each one of them.
+There is Term::Shell module in the first place. This is hybrid of that
+one with Module::Pluggable. So you could add command line hooks to your
+big and scary multi-module perl application.
+
+http://search.cpan.org/~pin/Term-Shell-Pluggable/lib/Term/Shell/Pluggable.pm
 
 INSTALLATION
 
