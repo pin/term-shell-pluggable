@@ -5,6 +5,7 @@ use ExtUtils::MakeMaker;
 WriteMakefile(
     NAME                => 'Term::Shell::Pluggable',
     AUTHOR              => 'Dmitri Popov <operator@cv.dp-net.com>',
+    LICENSE             => 'perl',
     VERSION_FROM        => 'lib/Term/Shell/Pluggable.pm',
     ABSTRACT_FROM       => 'lib/Term/Shell/Pluggable.pm',
     PL_FILES            => {},

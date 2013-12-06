@@ -21,9 +21,9 @@ our $VERSION = '0.03';
 
 =head1 SYNOPSIS
 
-There is Term::Shell module in the first place. Here is hybrid of that
-one with Module::Pluggable. So you could write big program with many modules
-commands in each one of them.
+There is Term::Shell module in the first place. This is hybrid of that
+one with Module::Pluggable. So you could add command line hooks to your
+big and scary multi-module perl application.
 
   #!/usr/bin/env perl
   package Example;
@@ -50,7 +50,21 @@ commands in each one of them.
   package main;
   
   use Term::Shell::Pluggable;
-  Term::Shell::Pluggable->run(packages => ['Example']);
+  Term::Shell::Pluggable->run(packages => [
+      'Example',
+      'Some::Other::Example' # another package i.e. defined in separate .pm file 
+  ]);
+  
+=head1 SEE ALSO
+
+L<Term::Shell>
+
+=head1 COPYRIGHT
+
+Copyright 2013 Dmitri Popov.
+
+This program is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself.
 
 =cut
 
